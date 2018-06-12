@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Orders Page";
+}
+@model E_Commerce.Models.Order
+<h1>Add a new order</h1>
+@if (ViewBag.Messages != null)
+    {
+        <p>@ViewBag.Messages</p>
+    }
+<form asp-controller="Home" asp-action="Purchase" method="POST">
+    <div class="form-group">
+        <span asp-validation-for="CustomerId"></span>
+        <label asp-for="CustomerId">Customer:</label>
+        <select class="form-control" asp-for="CustomerId">
+            @foreach(var customer in @ViewBag.AllCustomers)
+            {
+                <option value="@customer.CustomerId">@customer.Name</option>
+            }
+	    </select>
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="ProductId"></span>
+        <label asp-for="ProductId">Product:</label>
+        <select class="form-control" asp-for="ProductId">
+            @foreach(var product in @ViewBag.AllProducts)
+            {
+                <option value="@product.ProductId">@product.Name</option>
+            }
+	    </select>
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Quantity"></span>
+        <label asp-for="Quantity">Quantity:</label>
+        <input class="form-control" asp-for="Quantity">
+    </div>
+    <button type="submit" class="btn btn-primary">Order</button>
+</form>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach(var order in ViewBag.AllOrders)
+    {
+        <tr>
+            <td>@order.Customer.Name</td>
+            <td>@order.Product.Name</td>
+            <td>@order.Quantity</td>
+            <td>@order.CreatedAt</td>
+        </tr>
+    }
+    </tbody>
+</table>

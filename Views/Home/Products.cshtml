@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Products Page";
+}
+@model E_Commerce.Models.Product
+<h1>Add a new product</h1>
+<form asp-controller="Home" asp-action="Create" method="POST">
+    <div class="form-group">
+        <span asp-validation-for="Name"></span>
+        <label asp-for="Name">Name:</label>
+        <input class="form-control" asp-for="Name">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Description"></span>
+        <label asp-for="Description">Description:</label>
+        <input class="form-control" asp-for="Description">
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Quantity"></span>
+        <label asp-for="Quantity">Quantity:</label>
+        <input class="form-control" asp-for="Quantity">
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+<div class="products">
+    @foreach(var product in ViewBag.AllProducts)
+    {
+        <div>
+            <p><a href="orders">@product.Name</a></p>
+            <p>@product.Quantity</p>
+        </div>
+    }
+</div>
